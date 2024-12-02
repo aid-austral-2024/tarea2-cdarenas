@@ -6,30 +6,30 @@
 
 ## Descripción General del Trabajo
 
-El Banco X, con sucursales en tres países de Europa ha encargado la realización de un estudio con el objetivo de describir a sus clientes y entender qué características pueden motivarlos a dejar la entidad y los productos contratados. La idea es realizar un análisis descriptivo del conjunto de datos, analizarlos y desarrollar una breve conclusión al final. Como un plus, decidí agregar una sección a la aplicación, que permite entrenar un modelo basado en la regresión logística ya que el objetivo principal es entender qué características podrían explicar a los clientes a abandonar la entidad. Para esta feature se tomó la variable categórica "Exited" (0: False, 1: True) que posee un valor lógico, es decir, si el cliente abandonó o no la entidad. Si bien, regresión no es un tema visto en la materia, la idea era aprovechar la naturaleza de los datos y mostrar qué posibilidades de interacción podríamos lograr con Streamlit que fue la librería que decidí utilizar para resolver la parte de presentación.
+El Banco X, con sucursales en tres países de Europa ha encargado la realización de un estudio con el objetivo de describir a sus clientes y entender qué características pueden motivarlos a dejar la entidad y los productos contratados. La idea es realizar un análisis descriptivo del conjunto de datos, analizarlos y desarrollar una breve conclusión al final. Como un plus, decidí agregar una sección a la aplicación, que permite entrenar un modelo basado en la regresión logística ya que el objetivo principal es entender qué características podrían llevar a los clientes a abandonar la entidad. Para esta feature se tomó la variable categórica "Exited" (0: False, 1: True) que posee un valor lógico, es decir, si el cliente abandonó o no la entidad. Si bien, regresión no es un tema visto en la materia, la idea era aprovechar la naturaleza de los datos y mostrar qué posibilidades de interacción podríamos lograr con Streamlit que fue la librería que decidí utilizar para resolver la parte de presentación.
 
 ## Estructura del Proyecto
 
-1. **Selección de los datos, limpieza, ordenamiento y procesamiento de los mismos.
-2. **Análisis descriptivo y gráfico del conjunto de datos.
-3. **Contraste de hipótesis
-4. **Entrenamiento de un modelo basado en regresión logística para predecir clientes que pueden abandonar o no el banco.
+1. **Selección de los datos, limpieza, ordenamiento y procesamiento de los mismos.**
+2. **Análisis descriptivo y gráfico del conjunto de datos.**
+3. **Contraste de hipótesis.**
+4. **Entrenamiento de un modelo basado en regresión logística para predecir clientes que pueden abandonar o no el banco.**
 
 ## Ejecución de la aplicación
 
-1. **Clonar el repositorio del proyecto
-2. **Crear un entorno virtual para la instalación de dependencias necesarias (opcional).
-3. **Instalar requirements o dependencias: pip install -r requirements.txt
-4. **Iniciar aplicación: streamlit run app.py
+1. **Clonar el repositorio del proyecto.**
+2. **Crear un entorno virtual para la instalación de dependencias necesarias (opcional).**
+3. **Instalar requirements o dependencias: pip install -r requirements.txt.**
+4. **Iniciar aplicación: streamlit run app.py.**
 
 * Si se desea crear un entorno virtual para evitar instalar librerías de forma global que podrían generar algún conflicto, puede seguir los siguientes pasos antes del paso 3 de la enumeración anterior y luego continuar con los siguientes pasos (3 y 4):
 
-1. **Crear Entorno Virtual:** ejecuta:
+1. **Crear Entorno Virtual**, ejecuta:
     ```bash
     python -m venv myenv
     ```
     
-2. **Activa el entorno virtual, ejecuta:
+2. **Activa el entorno virtual**, ejecuta:
     ```bash
     source myenv/bin/activate
     ```
