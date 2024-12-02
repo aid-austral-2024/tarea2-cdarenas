@@ -18,6 +18,10 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 
 import plotly.express as px
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, classification_report, ConfusionMatrixDisplay
 
 PAGE_CONFIG = {"page_title": "Fantasy Bank", "page_icon": ":bank:",
                "layout": "wide", "initial_sidebar_state": "collapsed"}
@@ -243,7 +247,7 @@ def show_analysis_page():
         fig_hist.update_traces(marker=dict(line=dict(color='black', width=1)))
         st.plotly_chart(fig_hist)
 
-        st.write("La mayor frecuencia de clientes que abandonan el banco se da en el rango de 35-54 años.")
+        st.write("La mayor frecuencia de clientes que abandonan el banco se da en el rango de 39-50 años. De todas formas, se puede apreciar que en los grupos de edades de clientes más jóvenes la proporción de clientes que abandonan la entidad es baja en comparación con los grupos de edades más avanzadas. Se puede interpretar que en clientes más grandes, el nivel de deserción es más alto.")
 
         st.subheader("Contrastes de Hipótesis")
         st.write("Para corroborar la hipótesis acerca de que los clientes del banco que abandonaron tienen un salario promedio significativamente más bajo que los clientes que permanecen, se realizó una prueba t de Student para las medias de ambos grupos.")
@@ -265,10 +269,72 @@ def show_analysis_page():
         if p_value < alpha:
             st.write("Rechazamos la hipótesis nula. Existe evidencia suficiente para afirmar que los clientes que abandonaron tienen un salario medio más bajo.")
         else:
-            st.write("No rechazamos la hipótesis nula. No hay evidencia suficiente para afirmar que los clientes que abandonaron tienen un salario medio más bajo.")
+            st.write("No rechazamos la hipótesis nula. No hay evidencia suficiente para afirmar que los clientes que abandonaron la entidad tienen un salario medio más bajo.")
 
         st.success("Conclusiones finales:")
         st.write("Podemos concluir que podrían existir cuestiones demográficas, culturales, de género y relacionadas con la edad que pueden incidir en los clientes que deciden abandonar el banco. No se encontraron relaciones entre Abandono y variables como Credit Score, Salario Estimado o Saldo acumulado; es decir, no necesariamente los clientes que abandonan a la entidad suelen tener un nivel crediticio bajo, sueldos bajos o saldos acumulados bajos. Ambos grupos (Exited=0 y Exited=1) en la distribución de datos de las variables mencionadas anteriormente, poseen una similitud en cuanto a la concentración de los datos centrales y la variabilidad de los mismos, lo que nos sugiere que probalemente existen otros factores que pueden impactar en la decisión de abandonar el banco.")
+
+
+def show_logistic_regression():
+    df = st.session_state.dataframe
+    if st.session_state.data_file is not None:
+        # Crear una columna con el índice original
+        df['OriginalIndex'] = df.index
+        st.subheader("Vista previa del dataset")
+        st.write(df.head())
+        # Seleccionar características y objetivo
+        st.sidebar.subheader("Seleccionar columnas")
+        features = st.sidebar.multiselect("Selecciona las columnas de características (X)", df.columns)
+        st.success("Para la variable independiente (y) el modelo trabajará con 'Exited' (Abandono)")
+        if features:
+            X = df[features].values
+            y = df.iloc[:, 12].values
+            original_indices = df['OriginalIndex'].values  # Índices originales
+            # División en conjunto de entrenamiento y prueba
+            test_size = st.radio("Selecciona el porcentaje para Test", [0.1, 0.2, 0.3])
+            X_train, X_test, y_train, y_test, indices_train, indices_test = train_test_split(X, y, original_indices, test_size = test_size, random_state = 0)
+            # Escalado de variables
+            sc_X = StandardScaler()
+            X_train = sc_X.fit_transform(X_train)
+            X_test = sc_X.transform(X_test)
+            # Entrenar modelo de regresión logística
+            st.sidebar.subheader("Entrenar modelo")
+            if st.sidebar.button("Entrenar"):
+                classifier = LogisticRegression(random_state = 0)
+                classifier.fit(X_train, y_train)
+                # Predicción de los resultados con el Conjunto de Testing
+                y_pred  = classifier.predict(X_test)
+                # Mostramos resultados del modelo
+                st.subheader("Resultados del modelo")
+                # Matriz de confusión
+                cm = confusion_matrix(y_test, y_pred)
+                st.text("Matriz de Confusión:")
+                st.write(cm)
+                st.text("Métricas de clasificación:")
+                st.text(classification_report(y_test, y_pred))
+                # Visualizar la matriz de confusión
+                st.subheader("Gráfico de la matriz de confusión:")
+                cm_display = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=classifier.classes_)
+                fig, ax = plt.subplots(figsize=(5, 5))
+                cm_display.plot(cmap="Blues", ax=ax)
+                fig.patch.set_alpha(0.0)
+                ax.set_facecolor('none')
+                 # Cambiar color de las etiquetas a blanco o amarillo
+                ax.xaxis.label.set_color('white')
+                ax.yaxis.label.set_color('white')
+                ax.tick_params(axis='both', colors='white')  # Color de las etiquetas de los ejes
+                for label in ax.get_xticklabels() + ax.get_yticklabels():
+                    label.set_color('yellow') 
+                st.pyplot(fig)
+                # Mostrar predicciones con índices originales
+                st.subheader("Predicciones")
+                # Asociar las predicciones con los índices originales
+                results = pd.DataFrame({
+                    'OriginalIndex': indices_test,
+                    'Predicted': y_pred,
+                    'Actual': y_test
+                }).sort_values(by='OriginalIndex')
+                st.dataframe(results, use_container_width=True)
 
 
 def main():
@@ -279,7 +345,7 @@ def main():
         st.session_state.dataframe = None
 
     st.sidebar.success("Menu")
-    menu = ["🏠 Inicio", "📝 Descipción de datos", "📊 Análisis", "Acerca de..."]
+    menu = ["🏠 Inicio", "📝 Descipción de datos", "📊 Análisis", "🧠 Regresión Logística", "Acerca de..."]
     selected_option = st.sidebar.selectbox("Opciones", menu)
 
     if selected_option == "🏠 Inicio":
@@ -304,6 +370,9 @@ def main():
     elif selected_option == "📊 Análisis":
         st.subheader("Análisis de Datos - Abandono de Clientes")
         show_analysis_page()
+    elif selected_option == "🧠 Regresión Logística":
+        st.subheader("Regresión Logística - Entrenamiento para predicción de abandono")
+        show_logistic_regression()
     else:
         st.subheader("Acerca de...")
         st.write("Esta aplicación fue creada para presentar como trabajo práctico de la materia Análisis Inteligentes de Datos. Los datos utilizados son ficticios y el dataset fue descargado del sitio https://mavenanalytics.io")
