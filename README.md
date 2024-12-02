@@ -10,22 +10,29 @@ El Banco X, con sucursales en tres países de Europa ha encargado la realizació
 
 ## Estructura del Proyecto
 
--Selección de los datos, limpieza, ordenamiento y procesamiento de los mismos.
--Análisis descriptivo y gráfico del conjunto de datos.
--Contraste de hipótesis
--Entrenamiento de un modelo basado en regresión logística para predecir clientes que pueden abandonar o no el banco.
+1. **Selección de los datos, limpieza, ordenamiento y procesamiento de los mismos.
+2. **Análisis descriptivo y gráfico del conjunto de datos.
+3. **Contraste de hipótesis
+4. **Entrenamiento de un modelo basado en regresión logística para predecir clientes que pueden abandonar o no el banco.
 
 ## Ejecución de la aplicación
 
-1 - Clonar el repositorio del proyecto
-2 - Crear un entorno virtual para la instalación de dependencias necesarias (opcional).
-3 - Instalar requirements o dependencias: pip install -r requirements.txt
-4 - Iniciar aplicación: streamlit run app.py
+1. **Clonar el repositorio del proyecto
+2. **Crear un entorno virtual para la instalación de dependencias necesarias (opcional).
+3. **Instalar requirements o dependencias: pip install -r requirements.txt
+4. **Iniciar aplicación: streamlit run app.py
 
 * Si se desea crear un entorno virtual para evitar instalar librerías de forma global que podrían generar algún conflicto, puede seguir los siguientes pasos antes del paso 3 de la enumeración anterior y luego continuar con los siguientes pasos (3 y 4):
 
-1 - python -m venv myenv
-2  source myenv/bin/activate
+1. **Crear Entorno Virtual:** ejecuta:
+    ```bash
+    python -m venv myenv
+    ```
+    
+2. **Activa el entorno virtual, ejecuta:
+    ```bash
+    source myenv/bin/activate
+    ```
 
 ## Navegando la aplicación
 
