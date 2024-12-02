@@ -1,5 +1,9 @@
 # Análisis de datos de Clientes del Banco X
 
+# URL a la aplicación desplegada en entorno de pruebas:
+
+**[Enlace al sitio web del proyecto](https://tarea2-cdarenas-aid.streamlit.app/)**
+
 ## Descripción General del Trabajo
 
 El Banco X, con sucursales en tres países de Europa ha encargado la realización de un estudio con el objetivo de describir a sus clientes y entender qué características pueden motivarlos a dejar la entidad y los productos contratados. La idea es realizar un análisis descriptivo del conjunto de datos, analizarlos y desarrollar una breve conclusión al final. Como un plus, decidí agregar una sección a la aplicación, que permite entrenar un modelo basado en la regresión logística ya que el objetivo principal es entender qué características podrían explicar a los clientes a abandonar la entidad. Para esta feature se tomó la variable categórica "Exited" (0: False, 1: True) que posee un valor lógico, es decir, si el cliente abandonó o no la entidad. Si bien, regresión no es un tema visto en la materia, la idea era aprovechar la naturaleza de los datos y mostrar qué posibilidades de interacción podríamos lograr con Streamlit que fue la librería que decidí utilizar para resolver la parte de presentación.
