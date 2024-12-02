@@ -36,7 +36,7 @@ El Banco X, con sucursales en tres países de Europa ha encargado la realizació
 
 ## Navegando la aplicación
 
-Al iniciar la aplicación y acceder a la misma, te encontrarás en la pantalla Inicio. En esta pantalla verás una breve introducción sobre el trabajo y podrás seleccionar y subir el archivo con el conjunto de datos provisto. El archivo tiene el nombre de "Bank_Churn.csv" y es parte del repositorio, dentro de la carpeta "datos".
+Al iniciar la aplicación y acceder a la misma, te encontrarás en la pantalla Inicio. En esta pantalla verás una breve introducción sobre el trabajo y podrás seleccionar y subir el archivo con el conjunto de datos provisto. El archivo tiene el nombre de "Bank_Churn.csv" y es parte del repositorio, dentro de la carpeta "datos". Puedes descargar este archivo en tu computadora y utilizarlo en la aplicación para reproducir el análisis realizado sobre el conjunto de datos. Si bien los comentarios del análisis son estáticos ya que reflejan las características del conjunto de datos en un momento dado del tiempo, la aplicación provee cierta interacción con el usuario.
 
 A la izquierda podrás visualizar un menú con distintas opciones: Inicio, Descripción de Datos, Análisis y Regresión Logística. Las primeras secciones corresponden al análisis descriptivo y gráfico sobre el dataset con datos de 10.000 clientes del banco ficticio. El archivo fue descargado de un sitio web que provee datasets para análisis de datos y los detalles acerca del mismo y la fuente de descarga son comentadas en la aplicación desplegada.
 
